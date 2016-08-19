@@ -1,0 +1,44 @@
+<div class="toolbar">
+    <span class="group">
+        <button type="button" class="layers" ng-click='toggleSideLayer()'>toggle layers</button>
+    </span>
+    <span class="group">
+        <button type="button" class="undo" ng-click="layerHistory.undo()">undo</button>
+        <button type="button" class="redo" ng-click="layerHistory.redo()"
+                ng-disabled="psdTemplateInfo.history.redo.length==0">redo
+        </button>
+    </span>
+    <span class="group">
+        <button type="button" class="forward" ng-click="layerMng.changeLayerStack('f')">forward layer</button>
+        <button type="button" class="backward" ng-click="layerMng.changeLayerStack('b')">backward layer</button>
+        <button type="button" class="copy" ng-click="layerMng.layerCopy($event)">copy</button>
+        <button type="button" class="crop" ng-click="startCropMode()">crop</button>
+        <button type="button" class="remove" ng-click="layerMng.removeLayer()">remove</button>
+    </span>
+    <span class="group">
+        <button type="button" class="image" ng-click="layerMng.addLayer('image')">add image layer</button>
+        <button type="button" class="text" ng-click="layerMng.addLayer('text')">add text layer</button>
+        <button type='button' class='color' ng-model="psdTemplateInfo.background_color_hex" color-picker-spectrum>
+            <em ng-style="{'background-color':psdTemplateInfo.background_color_hex}">background color</em>
+        </button>
+    </span>
+    <span class="group">
+        <button type="button" ng-class='{active:toolbarShapeButtonShow, shape:true}' title="shape"
+                ng-click="toolbarShapeButtonShow=!toolbarShapeButtonShow">add shape</button>
+    </span>
+    <div class="dropdown-menu shape-select" style="display:block;top:39px;left:443px"
+         ng-show="toolbarShapeButtonShow" ng-mouseleave="toolbarShapeButtonShow=false">
+        <ul>
+            <li class="rectangle" ng-click="shapeMng.shapeAdd('Rectangle')"><span>rectangle</span></li>
+            <li class="ellipse" ng-click="shapeMng.shapeAdd('Ellipse')"><span>ellipse</span></li>
+            <!--<li class="line" ng-click="shapeMng.shapeAdd('line')"><span>line</span></li>-->
+            <!--<li class="ellipse" ng-click="ShapeAdd('circle')"><span>circle</span></li>-->
+        </ul>
+    </div>
+    <span class="upload" ng-click="fileUploadModal()"><em>upload</em></span>
+    <span class="wh">
+        W:<input type="text" ng-model="blockInfo.rect_width"><span>px</span>
+        H:<input type="text" ng-model="blockInfo.rect_height"><span>px</span>
+        <!--<button type="button">적용</button>-->
+    </span>
+</div>

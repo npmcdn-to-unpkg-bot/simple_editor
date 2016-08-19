@@ -1,0 +1,120 @@
+<div class="search-info">
+    <h3>search info</h3>
+    <div class="scroll-bar" scroll-check>
+        <div class="tab">
+            <a href="#" ng-class="{active:imageSearchTab.name=='imagePre100'}" translate="pre100"
+               ng-click="imageSearchTab.name='imagePre100'"></a>
+            <a href="#" ng-class="{active:imageSearchTab.name=='imageDesign'}" translate="design image"
+               ng-click="imageSearchTab.name='imageDesign'"></a>
+            <a href="#" ng-class="{active:imageSearchTab.name=='imageMy'}" translate="my image"
+               ng-click="imageSearchTab.name='imageMy'"></a>
+        </div>
+        <!-- pre100 검색-->
+        <div ng-if="imageSearchTab.name=='imagePre100'" class="search pre100">
+            <dl class="wrap">
+                <dt translate="htmlChooseShop"></dt>
+                <dd class="mall-select">
+                    <ui-select ng-model='imageSearchInfo.mallInfo' theme="select2"
+                               on-select="uiSelectMallInfo($item,$model)">
+                        <ui-select-match placeholder="Mall info" allow-clear="true">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="mall in (mallList|filter: $select.search) track by $index">
+                            <div ng-bind-html="mall.name | highlight: $select.search"></div>
+                            <span ng-bind-html="mall.mall_id | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </dd>
+                <dt translate="htmlSearchCondition"></dt>
+                <dd class="detail">
+                    <select class="select">
+                        <option value="" translate="mallCode"></option>
+                    </select>
+                    <input type="text" class="keyword" ng-model='imageSearchInfo.prd_code'
+                           placeholder="product code" ng-keypress="getImageListByEnter($event)">
+                    <select class="select" ng-model="imageSearchInfo.productType">
+                        <option ng-repeat="option in _selectOption.productImageType track by $index"
+                                value="{{option.value}}">{{option.name|translate}}</option>
+                    </select>
+                </dd>
+            </dl>
+            <button type="button" class="btn_search" loading-button="search" ng-click="getImageList()" translate="search"></button>
+        </div>
+
+        <!-- imageDesign 검색-->
+        <div ng-if="imageSearchTab.name=='imageDesign'" class="search design">
+            <dl class="wrap">
+                <dt translate="htmlChooseShop"></dt>
+                <dd class="mall-select">
+                    <ui-select ng-model='imageSearchInfo.mallInfo' theme="select2"
+                               on-select="uiSelectMallInfo($item,$model)">
+                        <ui-select-match placeholder="Mall info" allow-clear="true">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="mall in (mallList|filter: $select.search) track by $index">
+                            <div ng-bind-html="mall.name | highlight: $select.search"></div>
+                            <span ng-bind-html="mall.mall_id | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </dd>
+                <dt translate="type"></dt>
+                <dd>
+                    <label ng-repeat="type in _selectOption.imageSearchType" ng-init="imageSearchInfo.imageSearchType=''">
+                        <input type="radio" name="imageType" ng-value="type.val"
+                               ng-model="imageSearchInfo.imageSearchType">{{type.name|translate}}
+                    </label>
+                </dd>
+                <dt translate="category"></dt>
+                <dd>
+                    <label ng-repeat="type in _selectOption.imageSearchCategory" ng-init="imageSearchInfo.imageSearchCategory=''">
+                        <input type="radio" name="imageCategory" ng-value="type.val"
+                               ng-model='imageSearchInfo.imageSearchCategory'>{{type.name|translate}}
+                    </label>
+                </dd>
+                <dt translate="htmlSearchCondition"></dt>
+                <dd class="detail">
+                    <select class="select" ng-model="imageSearchInfo.searchMode"
+                            ng-init="imageSearchInfo.searchMode='output_tag'">
+                        <option value="output_tag" translate="tag"></option>
+                        <option value="prd_code" translate="Product Name"></option>
+                    </select>
+                    <input type="text" class="keyword" ng-model='imageSearchInfo.searchValue'
+                           ng-keypress="getImageListByEnter($event)">
+                </dd>
+            </dl>
+            <button type="button" class="btn_search" loading-button="search" ng-click="getImageList()" translate="search"></button>
+        </div>
+
+        <!-- 내이미지 검색 -->
+        <div ng-if="imageSearchTab.name=='imageMy'" class="search myimg">
+            <dl class="wrap">
+                <dt translate="htmlSearchCondition"></dt>
+                <dd class="detail">
+                    <select class="select" ng-model="imageSearchInfo.orderType" ng-init="imageSearchInfo.orderType='created_at'">
+                        <option value="created_at" translate="created date">생성날짜</option>
+                    </select>
+                    <select class="select2" ng-model="imageSearchInfo.order" ng-init="imageSearchInfo.order='desc'">
+                        <option value="desc" translate="descending"></option>
+                        <option value="" translate="ascending"></option>
+                    </select>
+                </dd>
+            </dl>
+            <button type="button" class="btn_search" loading-button="search" ng-click="getImageList()" translate="search"></button>
+        </div>
+
+        <div class="img-list">
+            <div masonry="masonryOption" class='grid' preserve-order="true"
+                 reload-on-resize="true" reload-on-show="true">
+                <div class="masonry-brick" ng-repeat="_image in imageList[imageSearchTab.name] track by $index"
+                     dnd-draggable="_image"
+                     dnd-allowed-types="{['_drag']}"
+                     dnd-type="'notAllowed'"
+                     dnd-dragStart="imageDragStart($event)"
+                     dnd-effect-allowed="copy"
+                     dnd-dragend="imageDragEnd(_image, event)">
+                    <button type="button" ng-show='imageSearchTab.name=="imageMy"' ng-click='removeImgList(_image, $event)' class="del">delete</button>
+                    <span class="mansory-wrapper">
+                        <span ng-show="showImageSizeInfo(_image)" class="size">{{_image.image_width + "x" + _image.image_height}}</span>
+                        <img width='90px' err-src ng-click="imageChangeByClick(_image)" ng-src="{{getImageSrc(_image)}}">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="popup-layer psd-upload">
+    <h2 translate="PSD 등록"></h2>
+    <dl class="input-form">
+        <dt><em class="man">*</em>{{'PSD 등록'|translate}}</dt>
+        <dd class="file">
+            <label><input type="file" nv-file-select uploader="psdFileUploadInfo" accept=".psd" />{{'파일찾기'|translate}}</label>
+            <span><em>.psd</em>{{'fileTypeAccept'|translate}}</span>
+            <div class="drag" nv-file-drop uploader="psdFileUploadInfo" nv-file-over>
+                <span>Drag and Drop</span>
+                <span ng-show="psdFileUploadInfo.isUploading&&psdFileUploadInfo.progress != 100"
+                      ng-style="stylePsdUpload()">{{psdFileUploadInfo.progress}}</span>
+            </div>
+        </dd>
+        <dt></dt>
+    </dl>
+    <span class="error" ng-show="psdFileUploadInfo.errorMsg">{{psdFileUploadInfo.errorMsg}}</span>
+    <div class="btn-area">
+        <button type="button" class="cancel" ng-click="cancel()">{{ '취소' | translate }}</button>
+        <button type="button" class="add" ng-click="ok()" translate="render"></button>
+    </div>
+</div>

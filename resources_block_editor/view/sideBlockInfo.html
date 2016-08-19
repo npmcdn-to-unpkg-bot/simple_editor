@@ -1,0 +1,45 @@
+<div class="block-info" style="display:block">
+    <h3>block info</h3>
+    <div class="scroll-bar">
+        <dl>
+            <dt translate="block name"></dt>
+            <dd>
+                <input type="text" ng-model="blockInfo.name">
+            </dd>
+            <dt translate="block type">{{ '블록유형' | translate }}</dt>
+            <dd>
+                <select>
+                    <option value="" translate="block type"></option>
+                </select>
+            </dd>
+            <dt translate="tag"></dt>
+            <dd>
+                <input type="text" placeholder="{{'tagInputPlz'|translate}}" ng-keydown="putTag($event)">
+                <span class="tag">
+                    <any ng-repeat="(index,tag) in blockInfo.tag track by $index">
+                        <em>{{tag}} <button type="button" class="del" ng-click="removeTag(index)">del</button></em>
+                    </any>
+                </span>
+            </dd>
+            <dt translate="TARGET URL"></dt>
+            <dd>
+                <input type="text" placeholder="URL" ng-model="blockInfo.target_link">
+            </dd>
+            <dt>{{ '요청항목' | translate }}</dt>
+            <dd class="request">
+                <div class="d">
+                    <span translate="designer"></span><em>{{blockInfo.user_de||'-'}}</em>
+                </div>
+                <div class="c">
+                    <span translate="qa"></span><em>{{blockInfo.user_qa||'-'}}</em>
+                </div>
+            </dd>
+            <dt>{{ 'PSD 업로드' | translate }}</dt>
+            <dd class="upload">
+                <button ng-show='!psdFileUploadInfo.uploading' type="button" class="btn-upload" ng-click="modalPsdUpload()">psd upload</button>
+                <button ng-show='psdFileUploadInfo.uploading' type="button" class="btn-upload" disabled="">{{ '업로드 진행중..' | translate }}</button>
+                <em class="file" ng-show="psdFileUploadInfo.info">{{psdFileUploadInfo.info.file.name}}</em>
+            </dd>
+        </dl>
+    </div>
+</div>

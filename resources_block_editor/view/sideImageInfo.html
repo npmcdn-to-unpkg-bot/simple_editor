@@ -1,0 +1,57 @@
+<div class="image-info">
+    <h3>image info</h3>
+    <div class="scroll-bar">
+        <dl>
+            <dt translate="magicWand"></dt>
+            <dd class="path">
+                <ul name="magicWandMenu">
+                    <li ng-class='className.magicWandAuto()'>
+                        <img ng-if='getMagicWandImageSrc("a")' ng-src="{{getMagicWandImageSrc('a')}}" ng-click="magicWandSetMainImage('a')">
+                        <span class="auto" ng-click="magicWandAuto()">Auto</span>
+                    </li>
+                    <li>
+                        <img ng-src="{{getMagicWandImageSrc('o')}}" ng-click="magicWandSetMainImage('o')">
+                        <span class="original">Original</span>
+                    </li>
+                    <li>
+                        <img ng-if='getMagicWandImageSrc("m")' ng-src="{{getMagicWandImageSrc('m')}}" ng-click="magicWandSetMainImage('m')">
+                        <span class="custom" ng-click="magicWand()">Custom</span>
+                    </li>
+                </ul>
+            </dd>
+            <dt translate="htmlCoordinates"></dt>
+            <dd class="whxy">
+                <span>width <input type="text" ng-model="psdTemplateInfo.rect.width" ng-change="rectSizeChange(psdTemplateInfo.rect, 'width')"></span>
+                <span>height <input type="text" ng-model="psdTemplateInfo.rect.height" ng-change="rectSizeChange(psdTemplateInfo.rect, 'height')"></span>
+                <span>top <input type="text" ng-model="psdTemplateInfo.rect.top" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+                <span>left <input type="text" ng-model="psdTemplateInfo.rect.left" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+            </dd>
+            <dt translate="htmlTransparency"></dt>
+            <dd class="">
+                <input type="range" min="0" max="100" ng-model="currentLayer.Opacity">
+            </dd>
+            <dt translate="htmlImageSizeManagement"></dt>
+            <dd class="align">
+                <label><input type="radio" name="image_align" value="none"
+                              ng-model="currentLayer.TransformMode.Mode">{{'htmlOriginalSize'|translate}}</label>
+                <label><input type="radio" name="image_align" value="transform"
+                              ng-model="currentLayer.TransformMode.Mode">{{'htmlMaskSize'|translate}}</label>
+                <!--label><input type="radio" name="image_align" value="ratio_width"
+                              ng-model="psdTemplateInfo.currentObj.TransformMode.Mode">가로에 맞춤</label>
+                <label><input type="radio" name="image_align" value="ratio_height"
+                              ng-model="psdTemplateInfo.currentObj.TransformMode.Mode">세로에 맞춤</label-->
+                <label><input type="radio" name="image_align" value="crop" hotkey="{'esc': destroyCrop, enter:cropperMethodWithHot}"
+                              ng-keydown="cropperMethodWithHot($event)"
+                              ng-model="currentLayer.TransformMode.Mode">{{'htmlImageCrop'|translate}}</label>
+            </dd>
+            <dt translate="htmlDegree"></dt>
+            <dd>
+                <div id="circle" degree-input>
+                    <div id="slider"></div>
+                </div>
+                <input type="text" class="range" data-max="360" data-min="0" data-step="1" name="angle"
+                       ng-model="currentLayer.RotationWeb">
+            </dd>
+        </dl>
+    </div>
+</div>

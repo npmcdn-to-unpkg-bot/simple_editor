@@ -1,0 +1,84 @@
+<div class="row" style="background-color:rgb(255, 255, 255);width:1000px">
+    <div class="col-md-2">
+        <div>
+            <div nv-file-drop uploader="fileUploadInfo" nv-file-over style="height:200px;"
+                 over-class="another-file-over-class">
+                <div class="well my-drop-zone" style="height:200px;">image file drop here!!</div>
+            </div>
+        </div>
+        <label class="input-file"><input type="file" multiple nv-file-select uploader="fileUploadInfo" accept="image/*">{{ '파일찾기' | translate }}<br></label>
+    </div>
+
+    <div class="col-md-9" style="margin-bottom: 40px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Progress</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in fileUploadInfo.queue">
+                <td>
+                    <strong>{{item.file.name}}</strong>
+                    <div><img ng-thumb="item._file" height="100" style='max-width:200px;'></div>
+                </td>
+                <td ng-bind="fileUploadInfo.fileSizeShow(item.file)"></td>
+                <td>
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <span ng-show="item.isSuccess" style="color:lawngreen;"><i class="glyphicon glyphicon-ok"></i></span>
+                    <!--<span ng-show="file.paused"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
+                    <span ng-show="item.isError" style="color:red;"><i class="glyphicon glyphicon-remove"></i></span>
+                </td>
+                <td nowrap="">
+                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()"
+                            ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                        <span class="glyphicon glyphicon-upload"></span> Upload
+                    </button>
+                    <!--
+                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"
+                            ng-disabled="!file.isUploading" disabled="disabled">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    -->
+                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                        <span class="glyphicon glyphicon-trash"></span> Remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <div>
+                Queue progress:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{'width':uploader.progress+'%'}"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success btn-s" ng-click="fileUploadInfo.uploadAll()"
+                    ng-disabled="!fileUploadInfo.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Upload all
+            </button>
+            <!--
+            <button type="button" class="btn btn-warning btn-s" ng-click="$flow.pause()"
+                    ng-disabled="!$flow.files.length" disabled="disabled">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+            </button>
+            -->
+            <button type="button" class="btn btn-danger btn-s" ng-click="fileUploadInfo.clearQueue()"
+                    ng-disabled="!fileUploadInfo.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Remove all
+            </button>
+        </div>
+
+    </div>
+
+</div>

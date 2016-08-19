@@ -1,0 +1,44 @@
+<div class="popup-layer hashtag-mapping" block-ui="sideTagMapping">
+    <h2 translate="객체조합"></h2>
+    <div class="wrap scroll-bar">
+        <dl>
+            <any ng-repeat='_tag in tagsInfo track by $index'>
+                <dt>
+                    <strong class="name">{{_tag.layerName}}</strong>
+                    <em class="tag">{{_tag.tag}}</em>
+                    <span class="etc">
+                        <span class="count" translate="totalCnt" translate-values="{cnt:_tag.totalCnt}"></span>
+                    </span>
+                </dt>
+                <dd>
+                    <div class="original">
+                        <img ng-src='{{_tag.originalSrc}}' width="90" height="90" keep-ratio>
+                        <em>{{'#'+_tag.tag}}</em>
+                    </div>
+                    <div class="taglist" ng-if="_tag.list.length!=0">
+                        <ul>
+                            <li ng-repeat="_tagList in _tag.list track by $index"
+                                ng-class="{active:_tagList.selected}"
+                                ng-click="tagImgClick(_tag.list, _tagList)">
+                                <span ng-if='_tagList.width' class="size">{{_tagList.width+'x'+_tagList.height}}</span>
+                                <img ng-src="{{_tagList.url_thumb}}" width="90" height="90" keep-ratio>
+                            </li>
+                        </ul>
+                        <uib-pagination boundary-links="true" total-items="_tag.totalCnt"
+                                        max-size="pagination.maxSize"
+                                        ng-model="_tag.currentPage"
+                                        items-per-page="pagination.limit"
+                                        ng-change="pagination.pageChange(_tag)"
+                                        template-url="/resources_block_editor/view/templatePagination.html">
+                        </uib-pagination>
+                    </div>
+                    <div class="nodata" ng-if="_tag.list.length==0">no image</div>
+                </dd>
+            </any>
+        </dl>
+    </div>
+    <div class="btn-area">
+        <button type="button" class="cancel" ng-click="cancel()" translate="cancel"></button>
+        <button type="button" class="add" ng-click="ok()" translate="반영"></button>
+    </div>
+</div>

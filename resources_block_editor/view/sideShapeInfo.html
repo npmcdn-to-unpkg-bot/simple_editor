@@ -1,0 +1,82 @@
+<div class="shape-info">
+    <h3>shape info</h3>
+    <div class="scroll-bar">
+        <dl>
+            <dt translate="라운드 코너"></dt>
+            <dd class="radius">
+                <div class="box" ng-class="{linked : currentLayer.cornerLink}">
+                    <input type="text" class="lt" ng-model="currentLayer.Corner.LeftTop" ng-change="shapeMng.shapeCornerSizeChange('LeftTop')"
+                           ng-disabled="currentLayer.ShapeType!='Rectangle'">
+                    <input type="text" class="rt" ng-model="currentLayer.Corner.RightTop" ng-change="shapeMng.shapeCornerSizeChange('RightTop')"
+                           ng-disabled="currentLayer.ShapeType!='Rectangle'">
+                    <input type="text" class="lb" ng-model="currentLayer.Corner.LeftBottom" ng-change="shapeMng.shapeCornerSizeChange('LeftBottom')"
+                           ng-disabled="currentLayer.ShapeType!='Rectangle'">
+                    <input type="text" class="rb" ng-model="currentLayer.Corner.RightBottom" ng-change="shapeMng.shapeCornerSizeChange('RightBottom')"
+                           ng-disabled="currentLayer.ShapeType!='Rectangle'">
+                    <button type="button" class="link" ng-click="currentLayer.cornerLink=!currentLayer.cornerLink">link</button>
+                </div>
+            </dd>
+            <dt translate="htmlCoordinates"></dt>
+            <dd class="whxy">
+                <span>width <input type="text" ng-model="psdTemplateInfo.rect.width" ng-change="rectSizeChange(psdTemplateInfo.rect, 'width')"></span>
+                <span>height <input type="text" ng-model="psdTemplateInfo.rect.height" ng-change="rectSizeChange(psdTemplateInfo.rect, 'height')"></span>
+                <span>top <input type="text" ng-model="psdTemplateInfo.rect.top" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+                <span>left <input type="text" ng-model="psdTemplateInfo.rect.left" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+            </dd>
+            <dt translate="htmlTransparency"></dt>
+            <dd>
+                <input type="range" min="0" max="100" ng-model="currentLayer.Opacity">
+            </dd>
+            <dt translate="colorTransparency"></dt>
+            <dd class="style">
+                <div>
+                    <h6 translate="배경"></h6>
+                    <div class="range"><input type="range" min="0" max="100" ng-model="currentLayer.FillOpacity"></div>
+                    <button type='button' class='color' ng-style="{'background-color':currentLayer.FillColor}"
+                            ng-model="currentLayer.FillColor" color-picker-spectrum>
+                    </button>
+                </div>
+                <div ng-hide="currentLayer.ShapeType=='line'">
+                    <h6 translate="테두리"></h6>
+                    <div class="range"><input type="range" min="0" ng-model="currentLayer.BolderOpacity"></div>
+                    <button type='button' class='color' ng-style="{'background-color':currentLayer.BolderColor}"
+                            ng-model="currentLayer.BolderColor" color-picker-spectrum>
+                    </button>
+                </div>
+                <div>
+                    <h6 translate="테두리굵기"></h6>
+                    <div class="range"><input type="range" min="0" max="100" ng-model="currentLayer.BolderSize" ng-change="shapeMng.borderSizeChange()"></div>
+                    <input type="text" class="border" ng-model="currentLayer.BolderSize" ng-change="shapeMng.borderSizeChange()">
+                    <div class="select">
+                        <ui-select ng-model='shapeBorderStyleSelect.value' theme="select2" search-enabled="false"
+                                   on-select="uiSelectShapeBorderStyle($item,$model)">
+                            <ui-select-match placeholder="Border Style">
+                                <img ng-src="{{$select.selected.src}}">
+                            </ui-select-match>
+                            <ui-select-choices repeat="border in (_selectOption.shapeBorderStyle|filter: $select.search) track by $index">
+                                <img ng-src="{{border.src}}">
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </dd>
+            <dt translate="htmlDegree"></dt>
+            <dd>
+                <div id="circle" degree-input="">
+                    <div id="slider"></div>
+                </div>
+                <input type="text" class="range ng-pristine ng-untouched ng-valid" data-max="360" data-min="0"
+                       data-step="1" name="angle" ng-model="currentLayer.RotationWeb">
+            </dd>
+        </dl>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

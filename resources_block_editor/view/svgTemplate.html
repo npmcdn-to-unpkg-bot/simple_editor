@@ -1,0 +1,26 @@
+<!-- Rectangle -->
+<svg ng-if='layer.ShapeType=="Rectangle"&&!layer.CornerEnable' ng-attr-width={{width}} ng-attr-height={{height}}>
+    <rect ng-style="setStyle(layer)" ng-attr-width="{{width}}" ng-attr-height="{{height}}"></rect>
+    <!--ng-attr-rx="{{rx}}" ng-attr-ry="{{ry}}"-->
+</svg>
+
+<!-- Rectangle : round -->
+<svg ng-if='layer.ShapeType=="Rectangle"&&layer.CornerEnable' ng-attr-width={{width}} ng-attr-height={{height}}>
+    <path ng-style="setStyle(layer)" ng-attr-d="{{drawRoundRectPath(layer)}}" />
+</svg>
+
+<!-- Ellipse -->
+<svg ng-if='layer.ShapeType=="Ellipse"' ng-attr-width={{width}} ng-attr-height={{height}}>
+    <ellipse ng-style="setStyle(layer)" ng-attr-cx="{{cx}}" ng-attr-cy="{{cy}}" ng-attr-rx="{{rx}}" ng-attr-ry="{{ry}}"/>
+</svg>
+
+<!-- circle : 완전한 구형(현재 사용불가) -->
+<svg ng-if='layer.ShapeType=="circle"' ng-attr-width={{width}} ng-attr-height={{height}}>
+    <circle ng-style="setStyle(layer)" ng-attr-cx="{{cx}}" ng-attr-cy="{{cy}}" ng-attr-r="{{r}}"></circle>
+</svg>
+
+<!-- line : 직선(현재 사용불가) -->
+<svg ng-if='layer.ShapeType=="line"' ng-attr-width={{width}} ng-attr-height={{height}}>
+    <line ng-style="setStyle(layer)" ng-attr-x1="{{x1}}" ng-attr-y1="{{y1}}"
+          ng-attr-x2="{{x2}}" ng-attr-y2="{{y2}}"></line>
+</svg>

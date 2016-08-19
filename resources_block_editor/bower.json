@@ -1,0 +1,38 @@
+{
+  "name": "resources_block_editor",
+  "authors": [
+    "coolwine <coolwine.kim@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-block-ui": "^0.2.2",
+    "ng-notify": "^0.8.0",
+    "angular-ui-notification": "^0.2.0",
+    "angular-hotkeys": "^0.2.2",
+    "angular-base64": "^2.0.5",
+    "angular-cookie": "^4.1.0",
+    "angular-file-upload": "^2.3.4",
+    "angular-x2js": "^0.2.0",
+    "angular-ui-select": "^0.18.1",
+    "angular-sanitize": "^1.5.8",
+    "angular-editable-text": "^1.1.2",
+    "jquery-ui": "^1.12.0",
+    "spectrum": "^1.8.0",
+    "cropper": "^2.3.2",
+    "jquery-editable-select": "^1.0.2",
+    "angular-dragdrop": "^1.0.13",
+    "angular-masonry": "^0.16.0",
+    "angular-drag-and-drop-lists": "^1.4.0"
+  }
+}

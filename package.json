@@ -1,0 +1,42 @@
+{
+  "name": "simple_editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --hot --progress --colors"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "bower-webpack-plugin": "^0.1.9",
+    "css-loader": "^0.23.1",
+    "expose-loader": "^0.7.1",
+    "html-loader": "^0.4.3",
+    "image-webpack-loader": "^2.0.0",
+    "imports-loader": "^0.6.5",
+    "jquery-ui": "^1.12.0",
+    "ng-cache-loader": "0.0.17",
+    "ngtemplate-loader": "^1.3.1",
+    "require-loader": "^0.1.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-bootstrap": "^0.12.2",
+    "angular-hotkeys": "^1.7.0",
+    "angular-translate": "^2.11.1",
+    "angular-ui-bootstrap": "^2.0.1",
+    "babel-polyfill": "^6.9.1",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.0"
+  }
+}

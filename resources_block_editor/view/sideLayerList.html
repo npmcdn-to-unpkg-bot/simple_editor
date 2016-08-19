@@ -1,0 +1,80 @@
+<aside class="layers-pannel" ng-controller="sideLayerPanelCtrl as sideLayer">
+    <h3>layers</h3>
+    <span class="btns">
+        <button type="button" ng-class="sideLayer.tagMapping.className('popupBtn', layer)"
+                ng-click="sideLayer.tagMapping.popup()" translate="객체조합"></button>
+        <button type="button" class="render" ng-click="sideLayer.textRenderAll()" translate="textRenderAll"></button>
+    </span>
+    <ul ng-if='layerListOrdered' class="layers scroll-bar" dnd-list="layerListOrdered" dnd-allowed-types="['layerPanel']">
+        <any ng-repeat="layer in layerListOrdered | orderObjectBy:'zIndex':true track by $index">
+            <!-- text -->
+            <li ng-if="layer.Type=='text'" ng-class='sideLayer.classLayerToggle(layer)'
+                data-layer-index="{{layer.Index}}" dnd-drop="false"
+                dnd-dragstart="sideLayer.dndMng.start(layer, event)"
+                dnd-draggable="layer" dnd-type="'layerPanel'" dnd-effect-allowed="move">
+                <label class="select" ng-click="sideLayer.selectLayerToggle(layer)">
+                    <input type="checkbox" ng-keydown="sideLayer.removeLayer($event,layer)">
+                </label>
+                <div class="info" ng-click="sideLayer.editorLayerSelect(layer)">
+                    <button type="button" ng-class="sideLayer.classLayerListEys(layer)"
+                            ng-click="sideLayer.sideLayerViewToggle(layer)">toggle show hide</button>
+                    <span ng-class="sideLayer.classTextLayer(layer)">
+                        <button type="button" ng-show='sideLayer.textRequestShow(layer)' ng-click="textRenderRequest(layer)" translate="render"></button>
+                        <span class="loading" ng-show="layer.textRendering">
+                            <img src="/resources_block_editor/img/loading18.gif" alt="">
+                        </span>
+                    </span>
+                    <span class="name" editable-text="layer.Name" on-change="sideLayer.editableText(layer,value)"></span>
+                </div>
+            </li>
+
+            <!-- image -->
+            <li ng-if="layer.Type=='image'" ng-class='sideLayer.classLayerToggle(layer)'
+                data-layer-index="{{layer.Index}}" dnd-drop="false"
+                dnd-dragstart="sideLayer.dndMng.start(layer, event)"
+                dnd-draggable="layer" dnd-type="'layerPanel'" dnd-effect-allowed="move">
+                <label class="select" ng-click="sideLayer.selectLayerToggle(layer)">
+                    <input type="checkbox" ng-keydown="sideLayer.removeLayer($event,layer)">
+                </label>
+                <div class="info" ng-click="sideLayer.editorLayerSelect(layer)">
+                    <button type="button" ng-class="sideLayer.classLayerListEys(layer)"
+                            ng-click="sideLayer.sideLayerViewToggle(layer)">toggle show hide</button>
+                    <span class="thumb">
+                        <button type="button" class='tag' ng-show="layer.TagInfo"
+                                ng-click="sideLayer.tagMapping.toggleTag(layer)">hashtag</button>
+                        <img ng-src="{{layer.ImageFile}}">
+                    </span>
+                    <span class="name" editable-text="layer.Name" on-change="sideLayer.editableText(layer,value)"></span>
+                </div>
+                <div class="hash-tag" ng-show="layer.TagInfo.show">
+                    <fieldset>
+                        <label ng-repeat="_tag in layer.TagInfo.list track by $index"
+                               ng-class="{selected:_tag.selected}"
+                               ng-click="sideLayer.tagMapping.tagClick($event,layer,_tag)">
+                            <em>{{_tag.name}}</em>
+                        </label>
+                    </fieldset>
+                </div>
+            </li>
+
+            <!-- shape -->
+            <li ng-if="layer.Type=='shape'" ng-class='sideLayer.classLayerToggle(layer)'
+                data-layer-index="{{layer.Index}}" dnd-drop="false"
+                dnd-dragstart="sideLayer.dndMng.start(layer, event)"
+                dnd-draggable="layer" dnd-type="'layerPanel'" dnd-effect-allowed="move">
+                <label class="select" ng-click="sideLayer.selectLayerToggle(layer)">
+                    <input type="checkbox" ng-keydown="sideLayer.removeLayer($event,layer)">
+                </label>
+                <div class="info" ng-click="sideLayer.editorLayerSelect(layer)">
+                    <button type="button" ng-class="sideLayer.classLayerListEys(layer)"
+                            ng-click="sideLayer.sideLayerViewToggle(layer)">toggle show hide</button>
+                    <span class="thumb">
+                        <svg-figure layer="layer" layer-panel="true"></svg-figure>
+                    </span>
+                    <span class="name" editable-text="layer.Name" on-change="sideLayer.editableText(layer,value)"></span>
+                </div>
+            </li>
+        </any>
+    </ul>
+    <div ng-if="!layerListOrdered" class="no-layer">No layers.</div>
+</aside>

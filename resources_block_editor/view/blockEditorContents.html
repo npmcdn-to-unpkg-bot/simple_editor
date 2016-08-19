@@ -1,0 +1,80 @@
+<div class="edit-area scroll-bar" id="mainEditorDiv" ng-click="checkExistCurrentObj($event)"
+     ruler-scroll-check mouse-selection nv-file-drop uploader="imgDragUpload" nv-file-over>
+    <!-- 메인 에디터 START -->
+    <div class="wrap-layers" ng-style="{width:blockInfo.rect_width+'px'}"><!--width:biggest in layer width , height:background height -->
+        <!-- 에디터로 외부 파일 드롭 -->
+        <div id='backgroundDiv' ng-style="setBackgroundStyle()">
+            <!-- 레이어 반복 시작 -->
+            <any ng-repeat="layer in layerListOrdered track by $index">
+                <!-- 텍스트 레이어 생성 -->
+                <div ng-if="layer.Type == 'text'" ng-style="setStyle(layer)" name="{{'obj_' + layer.Index}}"
+                     ng-click="getLayerSetting(layer, $event)" layer="layer" data-layer-index="{{layer.Index}}"
+                     ng-class="className.layer(layer)"
+                     data-drag="psdTemplateInfo.layerDraggable"
+                     jqyoui-draggable="jqyDraggable" data-jqyoui-options="dataJqyouiOptions">
+                    <!-- 추가된 레이어 이름 -->
+                    <span ng-show='!layer.ImageFile' ng-style='textWebStyle(layer)' ng-bind-html="layer.Text | replaceBr"></span>
+                </div>
+                <!-- 이미지 레이어 생성 -->
+                <div ng-if="layer.Type == 'image'" ng-style="setStyle(layer)" layer="layer"
+                     name="{{'obj_' + layer.Index}}" id="{{'obj_' + layer.Index}}" data-layer-index="{{layer.Index}}"
+                     ng-class="className.layer(layer)"
+                     ng-click="getLayerSetting(layer, $event)"
+                     data-drop="{{ layer.Type == 'image' }}"
+                     jqyoui-draggable="jqyDraggable" data-jqyoui-options="dataJqyouiOptions" data-drag="psdTemplateInfo.layerDraggable"
+                     dnd-drop="dragDrop(event, index, item, layer)" dnd-list>
+                    <!-- 추가된 레이어 이름 -->
+                    <span ng-if="layer.isAddedLayer">{{layer.Name}}</span>
+                </div>
+                <!-- 도형 레이어 생성 -->
+                <div ng-if="layer.Type == 'shape'" ng-style="setStyle(layer)" ng-class="className.layer(layer)"
+                     data-layer-index="{{layer.Index}}" ng-click="getLayerSetting(layer, $event)"
+                     data-drag="psdTemplateInfo.layerDraggable"
+                     jqyoui-draggable="jqyDraggable" data-jqyoui-options="dataJqyouiOptions">
+                    <svg-figure layer="layer"></svg-figure>
+                </div>
+            </any>
+            <!-- 레이어 반복 종료 -->
+        </div>
+        <!-- 마스크 레이어 -->
+        <div class='editorObj' name="maskLayer" ng-click="layerMng.initMaskLayer($event)"
+             ng-style="setMaskLayerStyle(evt)" ng-show="currentLayer"
+             data-drag="psdTemplateInfo.layerDraggable" my-contextmenu rotate
+             jqyoui-draggable="jqyDraggable" data-jqyoui-options="dataJqyouiOptions"
+             custom-resizable="ne, se, sw, nw, nm, em, sm, wm"></div>
+        <!-- 오른쪽 마우스 클릭 메뉴 -->
+        <div class="dropdown" id="intersectMenuList" style="position:absolute">
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a class="pointer" ng-repeat="layer in intersectLayer">
+                        <div style="float:left;width:20px;">{{layer.zIndex}}</div>
+                        <span ng-click="contextMenuSelected(layer, $event)">
+                            <img ng-if="layer.Type=='image'" ng-src="{{layer.ImageFile}}" class="imgSmall">
+                            <span ng-if="layer.Type=='text'">{{layer.Name}}</span>
+                        </span>
+                        <div style="float:right;width:15px;">
+                            <input type='button' value='+' class='change-index' field='quantity' prevent-context="true" ng-click="zindexUpButtonContextMenu(layer)"/>
+                            <input type='button' value='-' class='change-index' field='quantity' prevent-context="true" ng-click="zindexDownButtonContextMenu(layer)"/>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- image crop -->
+        <div class="cropParentDiv" ng-style="setCropStyle()" hotkey="{'esc': destroyCrop, enter:cropperMethodWithHot}"
+             ng-show="currentLayer.TransformMode.Mode=='crop'">
+            <!--
+            <span class="btn">
+                <button type="button" class="in" ng-click="cropperMethod($event, 'zoom')" data-option="0.1">+</button>
+                <button type="button" class="out" ng-click="cropperMethod($event, 'zoom')" data-option="-0.1">-</button>
+                <button type="button" class="crop" ng-click="cropperMethod($event, 'getCroppedCanvas')">crop</button>
+            </span>
+            -->
+            <img id='cropImg' cropper img-layer="{{currentLayer}}" callback-fn="cropperMethod(arg)">
+        </div>
+    </div>
+    <!-- 메인 에디터 END -->
+    <!-- 룰러 -->
+    <ng-include ng-show='templateUrl.ruler.show' src="templateUrl.ruler.src"></ng-include>
+</div>
+

@@ -1,0 +1,23 @@
+<div class="paging">
+    <span ng-if="::boundaryLinks" ng-class="{disabled: noPrevious()||ngDisabled}">
+        <a href="#" ng-click="selectPage(1, $event)" class="first"
+           ng-disabled="noPrevious()||ngDisabled">&lt;&lt;</a>
+    </span>
+    <span ng-if="::directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}">
+        <a href="#" ng-click="selectPage(page - 1, $event)" class="prev"
+           ng-disabled="noPrevious()||ngDisabled">&lt;</a>
+    </span>
+
+    <a ng-repeat="page in pages track by $index" ng-class="{active: page.active,disabled: ngDisabled&&!page.active}"
+       ng-click="selectPage(page.number, $event)" ng-disabled="ngDisabled&&!page.active">{{page.text}}
+    </a>
+
+    <span ng-if="::directionLinks" ng-class="{disabled: noNext()||ngDisabled}">
+        <a href="#" ng-click="selectPage(page + 1, $event)" class="next"
+           ng-disabled="noNext()||ngDisabled">&gt;</a>
+    </span>
+    <span ng-if="::boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}">
+        <a href="#" ng-click="selectPage(totalPages, $event)" class="last"
+           ng-disabled="noNext()||ngDisabled">&gt;&gt;</a>
+    </span>
+</div>

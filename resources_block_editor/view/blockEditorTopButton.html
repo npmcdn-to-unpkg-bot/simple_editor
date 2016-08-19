@@ -1,0 +1,17 @@
+<div class="status-area">
+    <em class='{{blockInfo.se_request_status_class}}' translate="{{blockInfo.se_request_status_name}}"></em>
+    <!-- 검수 요청 -->
+    <button type="button" ng-show='blockStatusMng.showConfirmBtn(blockInfo)' translate="askConfirm"
+            ng-click="blockStatusMng.inspectionAsk()"></button>
+    <!-- 검수 요청 취소 -->
+    <button type="button" ng-show='blockStatusMng.showConfirmCancelBtn(blockInfo)' translate="cancelConfirm"
+            ng-click="blockStatusMng.inspectionCancel()"></button>
+    <!-- 검수 완료 -->
+    <button type="button" ng-show='blockStatusMng.showConfirmDoneBtn(blockInfo)' translate="doneConfirm"
+            ng-click="blockStatusMng.inspectionDone()"></button>
+</div>
+
+<div class="btn-area">
+    <a href="#" ng-click="preview()">preview</a>
+    <button type="button" ng-click="blockStatusMng.save()">save</button>
+</div>

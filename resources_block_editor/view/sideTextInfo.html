@@ -1,0 +1,90 @@
+<div class="text-info">
+    <h3>text info</h3>
+    <div class="scroll-bar">
+        <fieldset>
+            <legend>텍스트 레이어 정보</legend>
+            <dl>
+                <dt translate="htmlStyle"></dt>
+                <dd class="style">
+                    <fieldset class="lang">
+                        <!--<label><input type="checkbox" ng-model='fontLang' ng-change='getTextFont("all")' value="all">전체</label>-->
+                        <label><input type="checkbox" ng-model='fontLang.lang_kr' ng-change='fontLocalSave()' ng-true-value="'1'" ng-false-value="'0'">{{'langKO'|translate}}</label>
+                        <label><input type="checkbox" ng-model='fontLang.lang_en' ng-change='fontLocalSave()' ng-true-value="'1'" ng-false-value="'0'">{{'langEN'|translate}}</label>
+                        <label><input type="checkbox" ng-model='fontLang.lang_cn' ng-change='fontLocalSave()' ng-true-value="'1'" ng-false-value="'0'">{{'langCN'|translate}}</label>
+                        <label><input type="checkbox" ng-model='fontLang.lang_jp' ng-change='fontLocalSave()' ng-true-value="'1'" ng-false-value="'0'">{{'langJP'|translate}}</label>
+                    </fieldset>
+                    <div class="group">
+                        <!--<pre>Model: {{fontName | json}}</pre>-->
+                        <div class="face">
+                            <ui-select ng-model='fontName.value' theme="select2" on-select="typeaheadFontSelect($item,$model)">
+                                <ui-select-match placeholder="Font">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="font in (fontStyles.show | filter: $select.search) track by $index">
+                                    <div ng-bind-html="font.name | highlight: $select.search"></div>
+                                    <img ng-src="{{font.image_url}}">
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <span class="color">
+                            <em>A</em>
+                             <button type='button' ng-style="{'background-color':currentLayer.Text_Properties[0].Color}"
+                                     ng-model="currentLayer.Text_Properties[0].Color" color-picker-spectrum>
+                             </button>
+                        </span>
+                        <select name="selectEditableFontSize" class="size" select-editable="fontSize"></select>
+                    </div>
+                    <div class="group">
+                        <span class="align">
+                            <button type="button" class="left" ng-click="moveAlignInTextInfo('left')" ng-class="currentLayer.Paragraph_Properties[0].Align==='left' ? 'active' : ''">left</button>
+                            <button type="button" class="center" ng-click="moveAlignInTextInfo('center')" ng-class="currentLayer.Paragraph_Properties[0].Align==='center' ? 'active' : ''">center</button>
+                            <button type="button" class="right" ng-click="moveAlignInTextInfo('right')" ng-class="currentLayer.Paragraph_Properties[0].Align==='right' ? 'active' : ''">right</button>
+                            <button type="button" class="justify" ng-click="moveAlignInTextInfo('justify')" ng-class="currentLayer.Paragraph_Properties[0].Align==='justify' ? 'active' : ''">justify</button>
+                        </span>
+                        <span class="spacing"> <!-- the space between letters 자간 -->
+                            <select name="selectEditableTracking" select-editable="fontTracking"></select>
+                        </span>
+                    </div>
+                    <div class="group">
+                        <span class="deco">
+                            <button type="button" class="bold" ng-click="moveFontStyleInTextInfo('bold')"
+                                    ng-class="{active:currentLayer.Text_Properties[0].Bold}">bold</button>
+                            <button type="button" class="italic" ng-click="moveFontStyleInTextInfo('italic')"
+                                    ng-class="{active:currentLayer.Text_Properties[0].Italic}">italic</button>
+                            <button type="button" class="underline" ng-click="moveFontStyleInTextInfo('underline')"
+                                    ng-class="{active:currentLayer.Text_Properties[0].UnderLine}">underline</button>
+                            <button type="button" class="linethrough" ng-click="moveFontStyleInTextInfo('linethrough')"
+                                    ng-class="{active:currentLayer.Text_Properties[0].Strike}">line-through</button>
+                        </span>
+                        <span class="lineheight"> <!-- then space between lines 행간 -->
+                            <select name="selectEditableLeading" select-editable="fontLeading"></select>
+                        </span>
+                    </div>
+                </dd>
+                <dt translate="text"></dt>
+                <dd class="text">
+                    <textarea cols="30" rows="10" ng-model="currentLayer.Text" ng-focus="textImageReset()" ng-blur="textRenderRequest(currentLayer)"></textarea>
+                    <span class="btn"><button type="button" ng-click="textRenderRequest(currentLayer)" translate="htmlRequestRender"></button></span>
+                    <div class="nt"><em>!</em>{{'warningShowFont'|translate}}</div>
+                </dd>
+                <dt translate="htmlCoordinates"></dt>
+                <dd class="whxy">
+                    <span>width <input type="text" ng-model="psdTemplateInfo.rect.width" ng-change="rectSizeChange(psdTemplateInfo.rect, 'width')"></span>
+                    <span>height <input type="text" ng-model="psdTemplateInfo.rect.height" ng-change="rectSizeChange(psdTemplateInfo.rect, 'height')"></span>
+                    <span>top <input type="text" ng-model="psdTemplateInfo.rect.top" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+                    <span>left <input type="text" ng-model="psdTemplateInfo.rect.left" ng-change="rectSizeChange(psdTemplateInfo.rect)"></span>
+                </dd>
+                <dt translate="htmlTransparency"></dt>
+                <dd class="">
+                    <input type="range" min="0" max="100" ng-model="currentLayer.Opacity">
+                </dd>
+                <dt translate="htmlDegree"></dt>
+                <dd>
+                    <div id="circle" degree-input>
+                        <div id="slider"></div>
+                    </div>
+                    <input type="text" class="range" data-max="360" data-min="0" data-step="1" name="angle"
+                           ng-model="currentLayer.RotationWeb">
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+</div>

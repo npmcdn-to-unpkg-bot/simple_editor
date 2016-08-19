@@ -1,0 +1,37 @@
+<div class="tagMapping" block-ui="sideTagMapping">
+    <h3 translate="객체조합"></h3>
+    <div class="scroll-bar" scroll-check>
+        <div class="search">
+            <button type="button" class="btn_search" loading-button="search" ng-click="tagMapping.init()" translate="search"></button>
+            <button type="button" class="auto" ng-click="tagMapping.auto()" translate="객체조합"></button>
+        </div>
+        <div class="img-list">
+            <div class="tag-mapping" ng-repeat="layer in tagMapping.layerList track by $index">
+                <span class="thumb" ng-click="tagMappingImageChangeByClick(layer.Index,layer)"
+                      custom-tooltip title="{{layer.Name}}">
+                    <img ng-src="{{layer.ImageFile}}">
+                    <span class="tag">{{layer.Name}}</span>
+                </span>
+                <div class="load-div" ng-show="layer.tagMappingLoading"><img src="/resources_block_editor/img/ajax-loader.gif"></div>
+                <div class="wrap" ng-if="!layer.tagMappingLoading">
+                    <div class="h-scroll" style="overflow: hidden;" sly-slide index="{{layer.Index}}"
+                         name="slySlide" ng-if="layer.tagMappingList.images">
+                        <ul class="clearfix" style="width:1000px;">
+                            <li ng-repeat="data in layer.tagMappingList.images track by $index"
+                                ng-click="tagMappingImageChangeByClick(layer.Index,data,$event)">
+                                <span class="size">{{data.width + "x" + data.height}}</span>
+                                <img ng-src="{{data.url_thumb}}" err-src>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="h-scroll empty" ng-if="!layer.tagMappingList.images"></div>
+                    <div class="scrollbar" ng-if="layer.tagMappingList.images">
+                        <div class="handle">
+                            <div class="mousearea"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

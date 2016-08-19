@@ -1,0 +1,12 @@
+<div class="crop" ng-if="psdTemplateInfo.currentObj.TransformMode.Mode == 'crop'" style="position:absolute;z-index:9999;top:{{crop.area.top}}px;left:{{crop.area.left}}px">
+    <!--span class="btn">
+        <button type="button" class="in" ng-click="cropperMethod($event, 'zoom')" data-option="0.1">+</button>
+        <button type="button" class="out" ng-click="cropperMethod($event, 'zoom')" data-option="-0.1">-</button>
+        <button type="button" class="crop" ng-click="cropperMethod($event, 'getCroppedCanvas')">crop</button>
+    </span-->
+<div class="crop-area">
+    <div class="cropper">
+        <img id='cropImg' cropper data-src="{{psdTemplateInfo.currentObj.ImageFile}}">
+    </div>
+</div>
+</div>

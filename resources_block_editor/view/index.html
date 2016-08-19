@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>BLOCK EDITOR</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/resources_block_editor/src/img/favicon-16x16.png">
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/bootstrap/dist/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/angular-bootstrap/ui-bootstrap-custom-1.1.1-csp.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/jquery-ui/jquery-ui.min.css" />-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/cropper/dist/cropper.min.css" />-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/angular-block-ui/dist/angular-block-ui.min.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css" />-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/ng-notify/dist/ng-notify.min.css" />-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/angular-colorpicker/colorpicker.min.css" />-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/jquery-ui-rotatable/jquery.ui.rotatable.css" />-->
+    <!--<link rel="stylesheet" href="/resources/bower_components/ui-select/dist/select.min.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/jquery-editable-select/source/jquery.editable-select.min.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/spectrum/spectrum.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/css/select2.css">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/bower_components/RulersGuides/rulersguides.css?ver=20160719">-->
+    <!--<link rel="stylesheet" href="/resources_block_editor/css/block-editor.css?ver=20160725">-->
+    <script type="text/javascript" src="/resources_block_editor/dist/app.bundle.js" charset="utf-8"></script>
+</head>
+<header>
+    <h1>block editor</h1>
+    <div class="gb">
+        <em>Language</em>
+        <select style="width:40px;height:20px;margin-right:10px;" ng-change="changeLanguage()" ng-model="editorPreferLang">
+            <option value="KO">KO</option>
+            <option value="EN">EN</option>
+        </select>
+        <em>{{ userInfo.user_id }}</em>
+        <a href="#" ng-click="logout()" translate="LOGOUT"></a>
+    </div>
+</header>
+<body ng-controller="blockEditorCtrl as blockEditorCtrl" img-prevent-drop ng-paste="clipboardPasteImage($event)" ng-class="className.body()">
+<div class="wrap-block-editor" ng-class="className.main()">
+    <!-- 상단 우측 버튼 -->
+    <ng-include src="templateUrl.blockEditorTopButton.src"></ng-include>
+
+    <!-- 좌측 레이어 리스트 -->
+    <ng-include src="templateUrl.leftLayerList.src"></ng-include>
+
+    <div class="block-editor">
+        <!-- toolbar include -->
+        <ng-include src="templateUrl.blockEditorToolbar.src"></ng-include>
+
+        <!-- block editor include -->
+        <ng-include src="templateUrl.blockEditorContents.src"></ng-include>
+    </div>
+
+    <aside class="info-box">
+        <span class="btn-splitter">
+            <button type="button" ng-click="sideTabMove('toggle')">Show or hide aside</button>
+        </span>
+        <ul class="tab">
+            <li class="search" ng-click="sideTabMove('search')" ng-class="sideTab.activeMenu==='search' ? 'active' : ''"><a href="#">image search</a></li>
+            <li class="block" ng-click="sideTabMove('block')" ng-class="sideTab.activeMenu==='block' ? 'active' : ''"><a href="#">block info</a></li>
+            <li class="layer" ng-click="sideTabMove('layer')" ng-class="(sideTab.activeMenu==='layer'||sideTab.activeMenu==='shape'||sideTab.activeMenu==='text'||sideTab.activeMenu==='image')? 'active' : ''"><a href="#">layer info</a></li>
+            <!--            <li class="tagMapping" ng-click="sideTabMove('tagMapping')" ng-class="(sideTab.activeMenu==='tagMapping')?'active':''"><a href="#">layer info</a></li>-->
+        </ul>
+
+        <div class="tab-contents">
+            <!-- include block info -->
+            <ng-include ng-show='sideTab.block.show' src="sideTab.block.src"></ng-include>
+
+            <!-- include search info -->
+            <ng-include ng-show='sideTab.search.show' src="sideTab.search.src"></ng-include>
+
+            <!-- include none selected -->
+            <ng-include ng-show='sideTab.none.show' src="sideTab.none.src"></ng-include>
+
+            <!-- include image info -->
+            <ng-include ng-show='sideTab.image.show' src="sideTab.image.src"></ng-include>
+
+            <!-- include text info -->
+            <ng-include ng-show='sideTab.text.show' src="sideTab.text.src"></ng-include>
+
+            <!-- include shape info -->
+            <ng-include ng-show='sideTab.shape.show' src="sideTab.shape.src"></ng-include>
+
+            <!-- include tagMapping info -->
+            <ng-include ng-show='sideTab.tagMapping.show' src="sideTab.tagMapping.src"></ng-include>
+        </div>
+    </aside>
+</div>
+</body>
+</html>

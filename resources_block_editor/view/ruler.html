@@ -1,0 +1,37 @@
+<div ng-controller="rulerCtrl as ctrl" class="rg-overlay">
+    <!-- menu -->
+    <div ng-class="ctrl.menuList.class()" ng-click="ctrl.menuList.menuToggle()"></div>
+    <ul class="rg-menu" ng-style="ctrl.menuList.menuStyle()"
+        ng-mouseleave="ctrl.menuList.menuToggle()">
+        <li ng-repeat="_menu in ctrl.menuList.menu track by $index">
+            <a ng-click="ctrl.menuList.do(_menu)"><span class="desc" translate="{{_menu.name}}"></span></a>
+        </li>
+    </ul>
+    <!-- horizontal -->
+    <div class="ruler h unselectable" ng-mousedown="ctrl.guide.add($event, 'h')"
+         ng-mouseup="ctrl.guide.checkNotMoved($event)"
+         ng-style="ctrl.style.ruler('h')" ng-show="ctrl.ruler.show">
+        <span ng-repeat="data in ctrl.ruler.horizon track by $index"
+              ng-class="data.className">
+            <span class='label' ng-if="data.showLabel">{{data.text}}</span>
+        </span>
+    </div>
+    <!-- vertical -->
+    <div class="ruler v unselectable" ng-mousedown="ctrl.guide.add($event, 'v')"
+         ng-mouseup="ctrl.guide.checkNotMoved($event)"
+         ng-style="ctrl.style.ruler('v')" ng-show="ctrl.ruler.show">
+        <span ng-repeat="data in ctrl.ruler.vertical track by $index"
+              ng-class="data.className">
+            <span class='label' ng-if="data.showLabel">{{data.text}}</span>
+        </span>
+    </div>
+
+    <!--<div ng-repeat="_guide in ctrl.ruler.guides track by $index"-->
+    <!--id="_guide_{{_guide.id}}"-->
+    <!--class="{{ctrl.guide.className(_guide)}}"-->
+    <!--ng-style="ctrl.guide.style(_guide)"-->
+    <!--data-drag='ctrl.ruler.dragEnable'-->
+    <!--jqyoui-draggable="ctrl.jqyDraggable" data-jqyoui-options="ctrl.dataJqyouiOptions">-->
+    <!--<span class="info" ng-style="ctrl.guide.styleInfo(_guide)">0px</span>-->
+    <!--</div>-->
+</div>
